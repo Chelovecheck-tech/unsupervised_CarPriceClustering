@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Clustering AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚗 Car Clustering Dashboard</h1>
+
+    <!-- 🔮 FORM -->
+    <div class="card">
+        <h2>Predict Cluster</h2>
+
+        <form method="POST">
+            <input name="price" placeholder="Price" required>
+            <input name="horsepower" placeholder="Horsepower" required>
+            <input name="enginesize" placeholder="Engine Size" required>
+            <input name="curbweight" placeholder="Curb Weight" required>
+            <input name="citympg" placeholder="City MPG" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h3>Result:</h3>
+            <p><b>Cluster ID:</b> {{ result.id }}</p>
+            <p><b>Category:</b> {{ result.name }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- 📊 GRAPHS -->
+    <div class="card">
+        <h2>Elbow Method</h2>
+        <img src="{{ url_for('static', filename='elbow.png') }}">
+    </div>
+
+    <div class="card">
+        <h2>PCA Clusters</h2>
+        <img src="{{ url_for('static', filename='pca.png') }}">
+    </div>
+
+    <!-- 📋 TABLE -->
+    <div class="card">
+        <h2>Dataset (first 50 rows)</h2>
+
+        <table>
+            <tr>
+                <th>price</th>
+                <th>horsepower</th>
+                <th>enginesize</th>
+                <th>curbweight</th>
+                <th>citympg</th>
+            </tr>
+
+            {% for row in table_data %}
+            <tr>
+                <td>{{ row.price }}</td>
+                <td>{{ row.horsepower }}</td>
+                <td>{{ row.enginesize }}</td>
+                <td>{{ row.curbweight }}</td>
+                <td>{{ row.citympg }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
